@@ -77,6 +77,7 @@ Page({
         id: wx.getStorageSync('clubId')
       },
       success: function (res) {
+        console.log('res: ' + JSON.stringify(res));
         let default_weight = 50;
         let length = res.data.ticketList ? res.data.ticketList.length : 0;
         obj.setData({
@@ -92,6 +93,7 @@ Page({
           title: res.data.club.name
         });
       }
+      
     });
   },
   // 申请加入 

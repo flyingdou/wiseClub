@@ -11,7 +11,8 @@ Page({
      },
      login_button:true,
      hasMobilephone:0,
-     hasLogin:0
+     hasLogin:0,
+     base_img_url: app.constant.base_img_url
   },
 
   /**
