@@ -1,0 +1,42 @@
+<!-- 引入过滤器 -->
+<wxs module='filter' src='../../utils/filters.wxs'></wxs>
+<import src="../../wxParse/wxParse.wxml"/>
+<view class='wraper'>
+  <view class='workDate'>
+    <view class='workDate-title'>
+      营业时间
+    </view>
+    <view class='workDate-body'>
+      <view class='workDate-time'>{{club.startTime}} - {{club.endTime}}</view>
+      <view class='workDate-week'>
+        <text decode='{{true}}'>{{club.workDate}}</text>
+      </view>
+    </view>
+  </view>
+  <view style='height:10px;background-color:#F0F0F2;'></view>
+  <view class='project'>
+    <view class='project-title'>
+      服务项目
+    </view>
+    <view class='project-body'>
+      <view class='project-item' wx:for="{{club.projectList}}" wx:key=''>
+        <view class='project-image'>
+          <image src='{{base_picture_url}}/{{item.projectImage}}' 
+            mode='aspectFill'>
+          </image>
+          <view class='project-name'>{{item.projectName}}</view>
+        </view>
+        <view class='project-content'>
+          <template is="wxParse" data="{{wxParseData:memoList[index]}}"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分享页面，回到首页按钮 -->
+  <view class='goHome' bindtap='goHome' wx:if='{{source}}'>
+          <image src='{{filter.getPictureUrl("201805241551.png")}}'></image>
+          <view>前往主页</view>
+  </view>
+
+</view>
