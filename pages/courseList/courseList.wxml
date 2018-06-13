@@ -10,10 +10,11 @@
         <!-- 其他天 -->
          <view class="{{dou_dates[index]}}" wx:else data-chooseDate="{{data.date}}" data-chooseindex="{{index}}" bindtap="getChooseDayData" >{{data.mmdd}}</view>
         </view>
-   </view>
+</view>
 
-<!-- 填充高度 -->
-<view class="fill"></view>
+  <!-- 填充高度 -->
+  <view class="fill"></view>
+
 
 <!-- 团体课程 -->
 <view class="courseList">

@@ -7,12 +7,12 @@
         <view class='head'>
                 <!-- headImgDiv -->
                 <view class='headImgDiv'>
-                        <image class='headImg' mode='aspectfill' src='{{filter.errorImage(priceActive.activePoster)}}'></image>
+                        <image class='headImg' mode='aspectFill' src='{{filter.errorImage(priceActive.activePoster)}}'></image>
                 </view>
                 <view class='prod' bindtap='gotoProduct'>
                       <view class='left prodName'>{{priceActive.prodName}}</view>
                       <view class='right more'>
-                              <image class='moreIcon' mode='aspectfill' src='https://www.ecartoon.com.cn/miniProgram/club/img/promore.png' ></image>
+                              <image class='moreIcon' mode='aspectFill' src='https://www.ecartoon.com.cn/miniProgram/club/img/promore.png' ></image>
                       </view>
                 </view>
         </view>
@@ -133,7 +133,7 @@
                                   <view class='ranking' wx:for="{{priceActive.sortList}}" wx:for-item="cutprice">
                                           <view class='pre'>
                                                 <view class='left userImageDiv'>
-                                                        <image class='userImage' mode='aspectfill'  src='{{filter.errorImage(cutprice.image)}}'></image>
+                                                        <image class='userImage' mode='aspectFill'  src='{{filter.errorImage(cutprice.image)}}'></image>
                                                 </view>
                                                 <view class='left cutMoney'>
                                                       {{filter.overflow_hidden(cutprice.name, 4)}}已砍掉{{filter.toFixed(cutprice.totalCut, 2)}}元<text class='currentMoney'>当前金额{{filter.toFixed(cutprice.currentMoney, 2)}}</text>元
