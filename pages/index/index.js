@@ -16,7 +16,8 @@ Page({
     timer: {
       text: '健身签到'
     },
-    status: 0
+    status: 0,
+    memberStatus: 0
   },
   // 页面加载函数
   onLoad: function () {
@@ -46,6 +47,22 @@ Page({
               getPhoneNumber: 1
             });
           }
+        }
+      });
+    }
+
+    if(wx.getStorageSync('memberId')){
+      var obj = this;
+      wx.request({
+        url: app.request_url + 'checkMemberToClub.asp',
+        data: {
+          memberId: wx.getStorageSync('memberId'),
+          clubId: wx.getStorageSync('clubId')
+        },
+        success: function (res) {
+          obj.setData({
+            memberStatus: res.data.status
+          });
         }
       });
     }
@@ -129,6 +146,36 @@ Page({
       }
     });
   },
+
+  relieve: function () {
+    var obj = this;
+    wx.request({
+      url: app.request_url + 'saveRelieve.asp',
+      data: {
+        memberId: wx.getStorageSync('memberId'),
+        clubId: wx.getStorageSync('clubId')
+      },
+      success: function (res) {
+        if(res.data.success){
+          wx.showModal({
+            title: '提示',
+            content: '解除成功!',
+            showCancel: false
+          });
+          obj.setData({
+            memberStatus: 0
+          });
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel: false
+          });
+        }
+      }
+    });
+  },
+
   // 联系客服
   contactService: function(){
     // 暂时不需要js操作
