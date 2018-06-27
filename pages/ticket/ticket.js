@@ -80,7 +80,8 @@ Page({
       data: {
         memberId: memberId,
         productId: obj.data.productId,
-        productType: obj.data.productType
+        productType: obj.data.productType,
+        clubId: wx.getStorageSync('clubId')
       },
       success: function (res) {
         // 设置数据源
