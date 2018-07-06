@@ -118,6 +118,7 @@ Page({
     let objx = this;
     wx.setStorageSync('sourceFormId', e.detail.formId);
     objx.apply();
+    console.log(e.detail.formId);
   },
 
   // 申请加入 
