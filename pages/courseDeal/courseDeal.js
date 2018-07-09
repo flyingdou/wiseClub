@@ -65,11 +65,48 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 上报预约课程 发送模板消息所需信息
    */
-  // onShareAppMessage: function () {
-    
-  // },
+  submitAppointment: function (e) {
+    var objx = this;
+    objx.setData({
+      source: e.detail.formId
+    })
+    console.log(e.detail.formId);
+    objx.appointment();
+  },
+
+  /**
+   * 上报预约课程 发送模板所需信息
+   */
+  uploadFormId: function (type_id) {
+    var objx = this;
+    var param = {};
+    param.source = objx.data.source;
+    param.openid = wx.getStorageSync('openId');
+    param.memberId = wx.getStorageSync('memberId');
+    param.clubId = wx.getStorageSync('clubId');
+    param.type = 'appointment';
+    param.type_id = type_id;
+    wx.request({
+      url: app.request_url + 'uploadFormId.asp',
+      data: {
+        json: encodeURI(JSON.stringify(param))
+      },
+      dataType: JSON,
+      success: function (res) {
+        res = JSON.parse(res.data);
+        console.log(JSON.stringify(res));
+      },
+      error: function (e) {
+        wx.showModal({
+          title: '提示',
+          content: '网络异常',
+          showCancel: false
+        })
+      }
+    })
+  },
 
   /**
    * 预约课程
@@ -94,7 +131,8 @@ Page({
         success: function (res) {
           res = JSON.parse(res.data);
           if (res.success) {
-             // 预约发送成功，等待俱乐部审批
+             // 预约信息发送成功，上报发送模板消息的信息
+             objx.uploadFormId(res.appointment_id);
              wx.showModal({
                title: "提示",
                content: "您的预约申请发送成功，请等候俱乐部审批",
