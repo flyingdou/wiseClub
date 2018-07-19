@@ -60,13 +60,6 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
-   */
-  // onShareAppMessage: function () {
-    
-  // },
-
-  /**
    * 查询提现账号 
    */
   getCashAccount: function () {
@@ -231,6 +224,15 @@ Page({
     
   },
 
+ /**
+  * 上报formId
+  */
+  submitAppointment: function (e) {
+    var objx = this;
+    wx.setStorageSync('cashFormId', e.detail.formId);
+    objx.cashMoney();
+  },
+
   /**
    * 申请提现
    */
@@ -284,6 +286,8 @@ Page({
       success:function (res) {
         res = JSON.parse(res.data);
         if (res.success) {
+          // 上传formId
+          objx.uploadFormId(res.cashId);
           // 数据请求成功
           wx.showModal({
             title: '提交成功',
@@ -316,6 +320,40 @@ Page({
         })
       }
     })
+  },
+
+  /**
+   * 上报formId到服务器
+   */
+  uploadFormId: function (type_id) {
+    var objx = this;
+    var param = {};
+    param.source = wx.getStorageSync('cashFormId');
+    param.openid = wx.getStorageSync('openId');
+    param.memberId = wx.getStorageSync('memberId');
+    param.clubId = wx.getStorageSync('clubId');
+    param.type = 'cash';
+    param.type_id = type_id;
+    wx.request({
+      url: app.request_url + 'uploadFormId.asp',
+      data: {
+        json: encodeURI(JSON.stringify(param))
+      },
+      dataType: JSON,
+      success: function (res) {
+        res = JSON.parse(res.data);
+        console.log(JSON.stringify(res));
+      },
+      error: function (e) {
+        wx.showModal({
+          title: '提示',
+          content: '网络异常',
+          showCancel: false
+        })
+      }
+    })
+
+
   },
 
   /**
