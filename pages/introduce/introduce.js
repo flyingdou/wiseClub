@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    base_picture_url: 'https://www.ecartoon.com.cn/picture',
+    base_picture_url: app.constant.base_pic_url,
     club: {}
   },
 
@@ -34,16 +34,24 @@ Page({
       club.workDate += week[index] + "&nbsp;";
     });
 
-    club.projectList.forEach((item, i) => {
-      WxParse.wxParse('memo' + i, 'html', item.memo, obj);
-      if (i === club.projectList.length - 1) {
-        WxParse.wxParseTemArray("memoList", 'memo', club.projectList.length, obj);
+    var projectGrounp = [];
+    var temporaryArr = [];
+    var count = 0;
+    club.projectList.forEach(function (item) {
+      temporaryArr.push(item);
+      count++;
+
+      if (count == 3) {
+        projectGrounp.push(temporaryArr);
+        temporaryArr = [];
+        count = 0;
       }
-    }); 
+    });
 
     // 页面渲染数据
     this.setData({
-      club: club
+      club: club,
+      projectGrounp: projectGrounp
     });
   },
 
@@ -148,6 +156,15 @@ Page({
 
     }
 
+  },
+
+  /**
+   * wxml绑定函数:轮播图点击绑定
+   */
+  bindBannerListTap: function () {
+    wx.navigateTo({
+      url: '../projectList/projectList'
+    })
   },
 
 
