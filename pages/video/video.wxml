@@ -9,7 +9,7 @@
   <text decode='{{true}}'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
   欢迎观看本俱乐部的宣传视频，咨询请点击首页“联系客服”
 </view>
-<video src='https://www.ecartoon.com.cn/picture/video.mp4' style='width: 100%;'>
+<video src='https://www.ecartoon.com.cn/picture/zd-video.mp4' style='width: 100%;'>
 </video>
 
 <!-- 分享页面，回到首页按钮 -->

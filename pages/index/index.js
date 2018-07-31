@@ -124,37 +124,15 @@ Page({
   // 申请加入 
   apply: function(){
     // 检查登录
-    if (!wx.getStorageSync('memberId')){
+    if (!wx.getStorageSync('memberId')) {
       wx.reLaunch({
         url: '../mine/mine?source=index'
       });
       return;
     }
-    // 请求服务器
-    let obj = this;
-    wx.request({
-      url: app.request_url + 'request.asp',
-      data: {
-        memberId: wx.getStorageSync('memberId'),
-        clubId: wx.getStorageSync('clubId')
-      },
-      success: function(res){
-        if(res.data.success){
-          obj.uploadFormId(res.data.msgId);
-          wx.showModal({
-            title: '提示',
-            content: '您的加入申请已经发送给俱乐部，请等候俱乐部审批',
-            showCancel: false
-          });
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: res.data.message,
-            showCancel: false
-          });
-        }
-      }
-    });
+    wx.navigateTo({
+      url: '../apply/apply'
+    })
   },
 
 
